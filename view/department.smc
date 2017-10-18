@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>소속관리</title>
+
+<!-- 라이브러리 -->
+<link rel="stylesheet" type="text/css" href="/lib/bootstrap-3.3.2-dist/css/bootstrap.min.css">
+<script type="text/javascript" src="/lib/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+	
+	<!-- 헤더 사용 -->
+	{{header}}
+	
+	<div class="container">
+		<div class="row">
+		  <div class="col-md-1">.col-md-1</div>
+		  <div class="col-md-1">.col-md-1</div>
+		  <div class="col-md-1">.col-md-1</div>
+		  <div class="col-md-1">.col-md-1</div>
+		  <div class="col-md-1">.col-md-1</div>
+		  <div class="col-md-1">.col-md-1</div>
+		  <div class="col-md-1">.col-md-1</div>
+		  <div class="col-md-1">.col-md-1</div>
+		  <div class="col-md-1">.col-md-1</div>
+		  <div class="col-md-1">.col-md-1</div>
+		  <div class="col-md-1">.col-md-1</div>
+		  <div class="col-md-1">.col-md-1</div>
+		</div>
+	</div>
+
+	<!-- 푸터 사용 -->
+	{{footer}}
+
+</body>
+</html>
