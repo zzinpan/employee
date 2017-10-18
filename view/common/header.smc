@@ -1,3 +1,14 @@
-<div>
-	헤더
-</div>
+<!-- 헤더에 스타일 추가 -->
+<script id="header_script">
+$("head").append("<link rel='stylesheet' type='text/css' href='/css/header.css'>");
+$("#header_script").remove();
+</script>
+<header>
+	<div class="header_logo">LOGO</div>
+	<div class="header_menus">
+		<div class="header_menu">소속 관리</div>
+		<div class="header_menu">직원 관리</div>
+		<div class="header_menu">항목 관리</div>
+		<div class="header_menu">정산</div>
+	</div>
+</header>

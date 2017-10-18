@@ -1,0 +1,12 @@
+<!-- head 공통 -->
+	<!-- 메타 정보 -->
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<!-- 공통 라이브러리 -->
+		<link rel="stylesheet" type="text/css" href="/lib/bootstrap-3.3.2-dist/css/bootstrap.min.css">
+		<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="/lib/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
+	
+	<!-- 공통 CSS -->
+		<link rel="stylesheet" type="text/css" href="/css/common.css">

@@ -28,33 +28,23 @@ String.prototype.hasString = function hasString( str ){
 			}
 			
 			var mainHtml = content.toString();
-			
 			var promises = [];
 
 			// 템플릿 추가
-//			if( mainHtml.hasString("{{header}}") ){
-//				promises.push( new Promise(function(){
-//					fs.readFile("../view/common/header.smc", function (err, header) {
-//						mainHtml = mainHtml.replace("{{header}}", header.toString());
-//						console.log( header.toString() );
-//					} );
-//				}) );
-//			}
-//			
-//			if( mainHtml.hasString("{{footer}}") ){
-//				promises.push( new Promise(function(){
-//					fs.readFile("../view/common/footer.smc", function (err, footer) {
-//							mainHtml = mainHtml.replace("{{footer}}", footer.toString());
-//							console.log( footer.toString() );
-//					} );
-//				}) );
-//			}
-			
-			return callback(null, mainHtml);
-			
+			fs.readFile("../view/common/head.smc", function (err, head) {
+				mainHtml = mainHtml.replace("{{common.head}}", head.toString());
+				fs.readFile("../view/common/header.smc", function (err, header) {
+					mainHtml = mainHtml.replace("{{common.header}}", header.toString());
+					fs.readFile("../view/common/footer.smc", function (err, footer) {
+						mainHtml = mainHtml.replace("{{common.footer}}", footer.toString());
+						return callback(null, mainHtml);
+					} );
+				} );
+			} );
+
 		});
 	});
-	
+
 	// view 경로 설정
 	app.set('views', '../view');
 	
