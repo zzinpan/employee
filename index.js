@@ -2,14 +2,6 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
-require("util");
-
-String.prototype.hasString = function hasString( str ){
-	if( this.indexOf( str ) > -1 ){
-		return true;
-	}
-	return false;
-};
 
 // http서버 실행
 (function run_http_server(){
@@ -31,11 +23,11 @@ String.prototype.hasString = function hasString( str ){
 			var promises = [];
 
 			// 템플릿 추가
-			fs.readFile("../view/common/head.smc", function (err, head) {
+			fs.readFile("./WEB-INF/view/common/head.smc", function (err, head) {
 				mainHtml = mainHtml.replace("{{common.head}}", head.toString());
-				fs.readFile("../view/common/header.smc", function (err, header) {
+				fs.readFile("./WEB-INF/view/common/header.smc", function (err, header) {
 					mainHtml = mainHtml.replace("{{common.header}}", header.toString());
-					fs.readFile("../view/common/footer.smc", function (err, footer) {
+					fs.readFile("./WEB-INF/view/common/footer.smc", function (err, footer) {
 						mainHtml = mainHtml.replace("{{common.footer}}", footer.toString());
 						return callback(null, mainHtml);
 					} );
@@ -46,7 +38,7 @@ String.prototype.hasString = function hasString( str ){
 	});
 
 	// view 경로 설정
-	app.set('views', '../view');
+	app.set('views', './WEB-INF/view');
 	
 	// 확장자 설정
 	app.set('view engine', 'smc');
@@ -54,15 +46,16 @@ String.prototype.hasString = function hasString( str ){
 
 // 정적 파일 불러오기
 (function setting_static_files(){
-	app.use('/lib', express.static('../lib'));
-	app.use('/css', express.static('../css'));
+	app.use('/lib', express.static('./WEB-INF/lib'));
+	app.use('/css', express.static('./WEB-INF/css'));
+	app.use('/js', express.static('./WEB-INF/js'));
 })();
 
 // 컨트롤러 주입
 (function inject_controller(){
 	
 	const controllerDirectories = [
-		"../controller"
+		"./src/controller"
 	];
 	
 	controllerDirectories.forEach(function( dir ){
