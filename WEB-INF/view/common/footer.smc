@@ -1,3 +1,8 @@
+<!-- 헤드에 스타일 추가 -->
+<script id="footer_script">
+$("head").append("<link rel='stylesheet' type='text/css' href='/css/footer.css'>");
+$("#footer_script").remove();
+</script>
 <footer>
-	
+푸터	
 </footer>

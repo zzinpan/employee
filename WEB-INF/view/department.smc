@@ -9,8 +9,8 @@
 	<!-- 헤더 사용 -->
 	{{common.header}}
 	
-	<!-- 푸터 사용 -->
-	{{common.footer}}
-
+	
+	
+	
 </body>
 </html>
