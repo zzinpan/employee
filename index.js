@@ -4,17 +4,12 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 
-// 파라미터 쉽게 접근
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-}));
-
-// http서버 실행
-(function run_http_server(){
-	app.listen(3000, function () {
-		console.log('Example app listening on port 3000!');
-	});
+// 요청 파라미터 쉽게 접근
+(function setting_body_parser(){
+	app.use( bodyParser.json() );       // to support JSON-encoded bodies
+	app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+	  extended: true
+	}));
 })();
 
 // smc확장자 template 렌더링
@@ -45,7 +40,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 	});
 
 	// view 경로 설정
-	app.set('views', './WEB-INF/view');
+	app.set('views', './webApp/WEB-INF/view');
 	
 	// 확장자 설정
 	app.set('view engine', 'smc');
@@ -53,9 +48,9 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 // 정적 파일 불러오기
 (function setting_static_files(){
-	app.use('/lib', express.static('./WEB-INF/lib'));
-	app.use('/css', express.static('./WEB-INF/css'));
-	app.use('/js', express.static('./WEB-INF/js'));
+	app.use('/lib', express.static('./webApp/WEB-INF/lib'));
+	app.use('/css', express.static('./webApp/WEB-INF/css'));
+	app.use('/js', express.static('./webApp/WEB-INF/js'));
 })();
 
 // 컨트롤러 주입
@@ -75,3 +70,9 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 	
 })();
 
+//http서버 실행
+(function run_http_server(){
+	app.listen(3000, function () {
+		console.log('Example app listening on port 3000!');
+	});
+})();
