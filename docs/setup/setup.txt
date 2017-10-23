@@ -1,0 +1,9 @@
+# node-oracledb 설치방법 참조
+https://community.oracle.com/docs/DOC-931127
+
+npm install express
+npm install oracledb
+npm install --save body-parser
+
+# powershell admin
+npm install --global --production windows-build-tools

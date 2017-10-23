@@ -2,9 +2,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
+{{common.head}}
 <title>Insert title here</title>
 </head>
 <body>
+
+	<!-- 헤더 사용 -->
+	{{common.header}}
+
 	항목
+	
 </body>
 </html>

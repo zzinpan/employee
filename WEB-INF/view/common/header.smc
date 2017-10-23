@@ -1,14 +1,29 @@
-<!-- 헤드에 스타일 추가 -->
-<script id="header_script">
-$("head").append("<link rel='stylesheet' type='text/css' href='/css/header.css'>");
-$("#header_script").remove();
-</script>
 <header>
 	<div class="header_logo">LOGO</div>
 	<div class="header_menus">
-		<div class="header_menu">소속 관리</div>
-		<div class="header_menu">직원 관리</div>
-		<div class="header_menu">항목 관리</div>
-		<div class="header_menu">정산</div>
+		<div class="header_menu" data-menu_path="/department">소속 관리</div>
+		<div class="header_menu" data-menu_path="/employee">직원 관리</div>
+		<div class="header_menu" data-menu_path="/item">항목 관리</div>
+		<div class="header_menu" data-menu_path="/calculate">정산</div>
 	</div>
 </header>
+
+<script id="header_script">
+
+	// head css 동적으로 추가
+	$("head").append("<link rel='stylesheet' type='text/css' href='/css/header.css'>");
+	
+	// 현재 메뉴에 선택 표시
+	$(".header_menu[data-menu_path='"+location.pathname+"']").addClass("active");
+	
+	// 특정 메뉴 선택 시, 페이지 전환
+	$("header").on("click", ".header_menu", function(){
+		var $this =  $(this);	
+		var path = $this.attr("data-menu_path");
+		location.href = path;
+	});
+	
+	// 현재 스크립트 제거
+	$("#header_script").remove();
+
+</script>

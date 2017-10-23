@@ -1,7 +1,14 @@
 // 라이브러리 가져오기
+var fs = require('fs');
 var express = require('express');
 var app = express();
-var fs = require('fs');
+var bodyParser = require('body-parser');
+
+// 파라미터 쉽게 접근
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+}));
 
 // http서버 실행
 (function run_http_server(){

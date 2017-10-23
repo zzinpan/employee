@@ -2,9 +2,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
+{{common.head}}
 <title>직원관리</title>
 </head>
 <body>
+	
+	<!-- 헤더 사용 -->
+	{{common.header}}
+	
 	직원
+	
 </body>
 </html>

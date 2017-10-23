@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+
+/* 소속목록 */
+.dept_container { margin-top: 50px; margin-bottom: 100px; }
+.dept_title { border-bottom: #ccc solid 1px; border-top: #ccc solid 1px; padding: 10px 0px; text-align: center; font-weight: bold; }
+.dept_btn_group { width: 100%; margin-top: 10px; text-align: center; border-bottom: #ccc solid 1px; border-top: #ccc solid 1px; padding: 10px 0px; bottom: 0px; }
+.dept_left_list { text-align: center; font-weight: bold; }
+.dept_emp_item_list { border-left: #ccc solid 1px; padding-left: 20px; }
+.dept_emp_item { padding: 5px 0px; }
+.dept_emp_item_btn_group { position: absolute; right: 20px; top: 0px; }
+
+/* 소속등록팝업 */
+.dept_reg_pop { position: fixed; top: calc( 50% - 300px ); background-color: #fff; height: 600px; border-radius: 10px; }
+.dept_emp_list { padding-top: 10px; padding-bottom: 10px; }
+.dept_emp_item_inp { display: inline-block; width: calc( 100% - 90px ); } 
+.dept_reg_pop_content { max-height: 415px; overflow-y: auto; padding-bottom: 20px; }
+.dept_reg_pop_btn_group { position: absolute; width: 100%; text-align: center; border-bottom: #ccc solid 1px; border-top: #ccc solid 1px; padding: 20px 0px; bottom: 0px; }
+.dept_emp_item_move_btns { width: 10px; display: inline-block; vertical-align: top; }
+.dept_emp_item_move_btn { height: 14px; cursor: pointer; color: #cccccc; }
+.dept_emp_item_move_btn:hover { color: #000000; };
