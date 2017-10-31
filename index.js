@@ -3,6 +3,8 @@ var fs = require('fs');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+global.Async = require('async');
+require('./src/dao/DBConnector.js');
 
 // 요청 파라미터 쉽게 접근
 (function setting_body_parser(){
@@ -25,11 +27,11 @@ var bodyParser = require('body-parser');
 			var promises = [];
 
 			// 템플릿 추가
-			fs.readFile("./WEB-INF/view/common/head.smc", function (err, head) {
+			fs.readFile("./webApp/WEB-INF/view/common/head.smc", function (err, head) {
 				mainHtml = mainHtml.replace("{{common.head}}", head.toString());
-				fs.readFile("./WEB-INF/view/common/header.smc", function (err, header) {
+				fs.readFile("./webApp/WEB-INF/view/common/header.smc", function (err, header) {
 					mainHtml = mainHtml.replace("{{common.header}}", header.toString());
-					fs.readFile("./WEB-INF/view/common/footer.smc", function (err, footer) {
+					fs.readFile("./webApp/WEB-INF/view/common/footer.smc", function (err, footer) {
 						mainHtml = mainHtml.replace("{{common.footer}}", footer.toString());
 						return callback(null, mainHtml);
 					} );
@@ -48,9 +50,9 @@ var bodyParser = require('body-parser');
 
 // 정적 파일 불러오기
 (function setting_static_files(){
-	app.use('/lib', express.static('./webApp/WEB-INF/lib'));
-	app.use('/css', express.static('./webApp/WEB-INF/css'));
-	app.use('/js', express.static('./webApp/WEB-INF/js'));
+	app.use('/lib', express.static('./webApp/lib'));
+	app.use('/css', express.static('./webApp/css'));
+	app.use('/js', express.static('./webApp/js'));
 })();
 
 // 컨트롤러 주입
@@ -67,6 +69,19 @@ var bodyParser = require('body-parser');
 			});
 		});
 	});
+	
+})();
+
+// 디버깅 로그
+(function setting_debug_logging(){
+	
+	var DEBUG = true;
+	
+	global.console.debug = function(){
+		if( DEBUG === true ){
+			global.console.log.apply( global.console, arguments );
+		}
+	};
 	
 })();
 

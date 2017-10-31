@@ -25,59 +25,9 @@
 			</div>
 		</div>
 
-		<!-- 소속 목록 -->		
 		<div class="row">
+			<!-- 소속 목록 -->		
 			<div id="dept_list" class="col-md-4 col-md-offset-4">
-
-				<!-- 소속 -->
-				<div class="dept_container">
-					<h3 class="dept_title">북부</h3>
-					<div class="row">
-						<div class="col-md-4 dept_left_list">
-							<span>직원관리항목</span>
-						</div>
-						<div class="col-md-8 dept_emp_item_list">
-							<div class="dept_emp_item">이름</div>
-							<div class="dept_emp_item">생년월일</div>
-							<div class="dept_emp_item">집전화</div>
-							<div class="dept_emp_item">비상연락망</div>
-						</div>
-					</div>
-					<div class="dept_btn_group">
-						<div class="btn common_btn">
-							<i class="fa fa-pencil" aria-hidden="true"></i>
-							<span>수정</span>
-						</div>
-						<div class="btn common_btn">
-							<i class="fa fa-times" aria-hidden="true"></i>
-							<span>삭제</span>
-						</div>
-					</div>
-				</div>
-				<div class="dept_container">
-					<h3 class="dept_title">북부</h3>
-					<div class="row">
-						<div class="col-md-4 dept_left_list">
-							<span>직원관리항목</span>
-						</div>
-						<div class="col-md-8 dept_emp_item_list">
-							<div class="dept_emp_item">이름</div>
-							<div class="dept_emp_item">생년월일</div>
-							<div class="dept_emp_item">집전화</div>
-							<div class="dept_emp_item">비상연락망</div>
-						</div>
-					</div>
-					<div class="dept_btn_group">
-						<div class="btn common_btn">
-							<i class="fa fa-pencil" aria-hidden="true"></i>
-							<span>수정</span>
-						</div>
-						<div class="btn common_btn">
-							<i class="fa fa-times" aria-hidden="true"></i>
-							<span>삭제</span>
-						</div>
-					</div>
-				</div>
 
 			</div>
 		</div>
@@ -97,7 +47,7 @@
 				
 				<div class="row">
 					<div class="col-md-10 col-md-offset-1">
-						<h1 class="common_title" style="width: calc( 100% + 30px ); margin-left: -15px;">소속 등록</h1>
+						<h1 id="dept_reg_pop_title" class="common_title" style="width: calc( 100% + 30px ); margin-left: -15px;">소속 등록</h1>
 						<div class="row dept_reg_pop_content">
 							<div class="col-md-10 col-md-offset-1">
 								<div class="form-group mt_25">
@@ -112,10 +62,7 @@
 											<h4 class="fw_b">순서</h4>
 										</div>
 										<select id="dept_sort_sel" class="form-control">
-											<option class="form-control">1</option>
-											<option class="form-control">2</option>
-											<option class="form-control">3</option>
-											<option class="form-control">4</option>
+											<option value="NO_SELECT" class="form-control">선택</option>
 										</select>
 										
 										<div style="display: inline-block; width: 110px;">
@@ -175,22 +122,59 @@
 	
 	<div id="template" style="display: none;">
 	
-		<div class="dept_emp_item">
-			<div class="dept_emp_item_move_btns">
-				<div class="dept_emp_item_move_btn" data-move_type="up">
-					<i class="fa fa-sort-asc" aria-hidden="true"></i>
+		<!-- 구분: 등록팝업 -->
+		<div class="reg_pop">
+			
+			<!-- 소속 별 직원 관리 항목 -->	
+			<div class="dept_emp_item">
+				<div class="dept_emp_item_move_btns">
+					<div class="dept_emp_item_move_btn" data-move_type="up">
+						<i class="fa fa-sort-asc" aria-hidden="true"></i>
+					</div>
+					<div class="dept_emp_item_move_btn" data-move_type="down">
+						<i class="fa fa-sort-desc" aria-hidden="true"></i>
+					</div>
 				</div>
-				<div class="dept_emp_item_move_btn" data-move_type="down">
-					<i class="fa fa-sort-desc" aria-hidden="true"></i>
+				<input class="dept_emp_item_inp form-control" type="text" placeholder="항목을 입력하세요.">
+				<div class="dept_emp_item_del_btn btn common_btn">
+					<i class="fa fa-times" aria-hidden="true"></i>
+					<span>삭제</span>
 				</div>
 			</div>
-			<input class="dept_emp_item_inp form-control" type="text" placeholder="항목을 입력하세요.">
-			<div class="dept_emp_item_del_btn btn common_btn">
-				<i class="fa fa-times" aria-hidden="true"></i>
-				<span>삭제</span>
-			</div>
+			
+			<!-- 순서 항목 -->
+			<option value="0" class="form-control dept_sort_opt">1</option>
+			
 		</div>
-	
+
+		<!-- 구분: 메인 -->		
+		<div class="main">
+			
+			<!-- 소속 -->
+			<div class="dept_container">
+				<h3 class="dept_title">북부</h3>
+				<div class="row">
+					<div class="col-md-4 dept_left_list">
+						<span>직원관리항목</span>
+					</div>
+					<div class="col-md-8 dept_emp_item_list">
+					</div>
+				</div>
+				<div class="dept_btn_group">
+					<div class="dept_modify_btn btn common_btn">
+						<i class="fa fa-pencil" aria-hidden="true"></i>
+						<span>수정</span>
+					</div>
+					<div class="dept_remove_btn btn common_btn">
+						<i class="fa fa-times" aria-hidden="true"></i>
+						<span>삭제</span>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 소속 내 직원관리항목 -->
+			<div class="dept_emp_item">이름</div>
+		</div>
 	</div>
 	
 </body>
