@@ -30,7 +30,7 @@ module.exports = {
 				SET 
 				    DEPT_NAME = :deptName, 
 				    DEPT_SORT = :deptSort, 
-				    DEPT_UP_DATE = SYSDATE 
+				    UP_DATE = SYSDATE 
 				WHERE 
 				    DEPT_ID = :deptId 
 			`,
@@ -42,8 +42,8 @@ module.exports = {
 				    DEPT_NAME AS "deptName",
 				    DEPT_SORT AS "deptSort",
 				    DEPT_DELETE_YN AS "deptDeleteYn",
-				    DEPT_REG_DATE AS "deptRegDate",
-				    DEPT_UP_DATE AS "deptUpDate"
+				    REG_DATE AS "regDate",
+				    UP_DATE AS "upDate"
 				FROM 
 				    TB_DEPT 
 			    WHERE 
@@ -134,8 +134,8 @@ module.exports = {
 				    DEPT_NAME AS "deptName",
 				    DEPT_SORT AS "deptSort",
 				    DEPT_DELETE_YN AS "deptDeleteYn",
-				    DEPT_REG_DATE AS "deptRegDate",
-				    DEPT_UP_DATE AS "deptUpDate"
+				    REG_DATE AS "regDate",
+				    UP_DATE AS "upDate"
 				FROM 
 				    TB_DEPT 
 				WHERE 

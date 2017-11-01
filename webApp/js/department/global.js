@@ -76,14 +76,7 @@ $(function department_global(){
 										}
 									}
 									
-									$deptInfo.data({
-										deptId: deptInfo.deptId,
-										deptName: deptInfo.deptName,
-										deptSort: deptInfo.deptSort,
-										deptDeleteYn: deptInfo.deptDeleteYn,
-										deptRegDate: deptInfo.deptRegDate,
-										deptUpDate: deptInfo.deptUpDate
-									});
+									$deptInfo.data( deptInfo );
 									
 									$deptInfo.find(".dept_title").text( deptInfo.deptName );
 									

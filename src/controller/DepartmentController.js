@@ -17,9 +17,11 @@ module.exports = function DepartmentController( app ){
 		var deptId = req.body.deptId;
 		var deptName = req.body.deptName;
 		var deptSort = req.body.deptSort;
-		var empItemNames = req.body.empItemNames;
+		var createEmpItemList = req.body.createEmpItemList;
+		var modifyEmpItemList = req.body.modifyEmpItemList;
+		var removeEmpItemNames = req.body.removeEmpItemNames;
 		
-		departmentService.modifyDeptInfo( deptId, deptName, deptSort, empItemNames, function( error, result ){
+		departmentService.modifyDeptInfo( deptId, deptName, deptSort, createEmpItemList, modifyEmpItemList, removeEmpItemNames, function( error, result ){
 			if( error == null ){
 				res.send({ result: "SUCCESS", data: result });
 			}else{

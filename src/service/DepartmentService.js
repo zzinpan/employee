@@ -21,7 +21,7 @@ module.exports = (function DepartmentService(){
 					function selectNewDeptId( callback ){
 						connection.query( deptQuery.selectNewDeptId, function( error, result ){
 							deptId = result[0].DEPT_ID;
-							callback();
+							callback( error );
 						} );
 					},
 					
@@ -47,7 +47,7 @@ module.exports = (function DepartmentService(){
 									empItemSort: i 
 								} );
 							}
-							callback();
+							callback( error );
 						} );
 						
 						
@@ -72,66 +72,74 @@ module.exports = (function DepartmentService(){
 		/**
 		 * 소속 수정
 		 */
-		modifyDeptInfo: function modifyDeptInfo( deptId, deptName, afterDeptSort, empItemNames, controllerCallback ){
+		modifyDeptInfo: function modifyDeptInfo( deptId, deptName, deptSort, createEmpItemList, modifyEmpItemList, removeEmpItemNames, controllerCallback ){
 			
 			Pool.run(function( connection, callback ){
 				
+				var beforeDeptSort = null;
+				var updateSortQuery = null;
+				var empItemInfoList = [];
+				
 				connection.transaction([
 					
-					function updateDeptInfo( callback ){
-						
-						// 기존 소속정보 조회
+					// 기존 소속정보 조회
+					function selectDeptInfoByDeptId( callback ){
 						connection.query( deptQuery.selectDeptInfoByDeptId, {
 							deptId: deptId
 						}, function( error, result ){
 
-							var beforeDeptSort = result[ 0 ].deptSort;
-							var updateSortQuery = null;
+							beforeDeptSort = result[ 0 ].deptSort;
 							
-							// 소속 수정 전, 기존 소속의 소속 순서 갱신
 							if( beforeDeptSort < afterDeptSort ){
 								updateSortQuery = deptQuery.updateDeptSortByIncrease;
 							}else{
 								updateSortQuery = deptQuery.updateDeptSortByDecrease;
 							}
-							connection.update( updateSortQuery, {
-								beforeDeptSort: beforeDeptSort,
-								afterDeptSort: afterDeptSort
-							},{}, function( error, result ){
-								
-								// 소속 수정
-								connection.update( deptQuery.updateDeptInfo, {
-									deptId: deptId,
-									deptName: deptName,
-									deptSort: afterDeptSort
-								},{}, function( error, result ){
-									
-									// 기존 직원 항목 전부 삭제
-									connection.execute( empQuery.deleteEmpItemKeyInfoByDeptId, { 
-										deptId: deptId
-									}, function( error, result ){
-										
-										// 데이터 가공
-										var bindingData = [];
-										for( var i=0; i<empItemNames.length; ++i ){
-											bindingData.push( {
-												deptId: deptId,
-												empItemName: empItemNames[ i ],
-												empItemSort: i 
-											} );
-										}
-										
-										// 소속에서 관리할 직원 항목을 등록
-										connection.batchInsert( empQuery.insertEmpItemKeyInfo, bindingData, {}, callback );
-										
-									} );
-									
-								} );
-								
-							} );
-							
+							callback( error );
 						} );
+					},
+					
+					// 소속 수정 전, 기존 소속의 소속 순서 갱신
+					function updateDeptSort( callback ){
+						connection.update( updateSortQuery, {
+							beforeDeptSort: beforeDeptSort,
+							afterDeptSort: afterDeptSort
+						},{}, callback );
+					},
+					
+					// 소속 수정
+					function updateDeptInfo( callback ){
+						connection.update( deptQuery.updateDeptInfo, {
+							deptId: deptId,
+							deptName: deptName,
+							deptSort: afterDeptSort
+						},{}, callback );
+					},
+					
+					>>>>>>>>>>>>>>>>>>>>>>>>>>>수정해야됨>>>>>>>>>>>>>>>>>
+					
+					// 기존 직원 항목 전부 삭제
+					function deleteEmpItemKeyInfoByDeptId( callback ){
+						connection.execute( empQuery.deleteEmpItemKeyInfoByDeptId, { 
+							deptId: deptId
+						}, function( error, result ){
 							
+							// 데이터 가공
+							for( var i=0; i<empItemNames.length; ++i ){
+								empItemInfoList.push( {
+									deptId: deptId,
+									empItemName: empItemNames[ i ],
+									empItemSort: i 
+								} );
+							}
+							callback( error );
+						} );
+						
+					},
+					
+					// 소속에서 관리할 직원 항목을 등록
+					function insertEmpItemKeyInfo( callback ){
+						connection.batchInsert( empQuery.insertEmpItemKeyInfo, empItemInfoList, {}, callback );
 					}
 					
 					],{
@@ -147,7 +155,6 @@ module.exports = (function DepartmentService(){
 		 * 소속 목록 조회
 		 */
 		getDeptList: function getDeptList( controllerCallback ){
-			
 			
 			Pool.run(function( connection, callback ){
 			
@@ -205,31 +212,33 @@ module.exports = (function DepartmentService(){
 			
 			Pool.run(function( connection, callback ){
 				
+				var deptSort = null;
+				
 				connection.transaction([
 					
-					function deleteDeptInfo( callback ){
-						
-						// 삭제할 소속정보 조회
+					// 삭제할 소속정보 조회
+					function selectDeptInfoByDeptId( callback ){
 						connection.query( deptQuery.selectDeptInfoByDeptId, {
 							deptId: deptId
 						}, function( error, result ){
-							
-							// 삭제에 의한 소속목록 순서 갱신
-							var deptSort = result[0].deptSort;
-							connection.update( deptQuery.updateDeptSortByDeleteDeptInfo, {
-								deptSort: deptSort
-							}, {}, function( error, result ){
-								
-								// 소속정보 삭제
-								connection.update( deptQuery.updateDeptDeleteYnByDeptId, {
-									deptId: deptId,
-									deptDeleteYn: "Y"
-								}, {}, callback );
-								
-							} );
-							
+							deptSort = result[0].deptSort;
+							callback( error );
 						} );
-						
+					},
+					
+					// 삭제에 의한 소속목록 순서 갱신
+					function updateDeptSortByDeleteDeptInfo( callback ){
+						connection.update( deptQuery.updateDeptSortByDeleteDeptInfo, {
+							deptSort: deptSort
+						}, {}, callback );
+					},
+					
+					// 소속정보 삭제
+					function updateDeptDeleteYnByDeptId( callback ){
+						connection.update( deptQuery.updateDeptDeleteYnByDeptId, {
+							deptId: deptId,
+							deptDeleteYn: "Y"
+						}, {}, callback );
 					}
 					
 				],{
@@ -237,9 +246,7 @@ module.exports = (function DepartmentService(){
 					  autoCommit: true
 				}, callback);
 				
-			}, function dataFormat( error, result ){
-				controllerCallback( error, result );
-			} );
+			}, controllerCallback );
 				
 			
 		},

@@ -56,7 +56,7 @@ $(function common(){
 			/**
 			 * 소속수정
 			 */
-			modifyDeptInfo: function modifyDeptInfo( deptId, deptName, deptSort, empItemNames, callback ){
+			modifyDeptInfo: function modifyDeptInfo( deptId, deptName, deptSort, createEmpItemList, modifyEmpItemList, removeEmpItemNames, callback ){
 				
 				$.ajax({
 					url: "/department/modifyDeptInfo",
@@ -65,7 +65,9 @@ $(function common(){
 						deptId: deptId,
 						deptName: deptName,
 						deptSort: deptSort,
-						empItemNames: empItemNames
+						createEmpItemList: createEmpItemList,
+						modifyEmpItemList: modifyEmpItemList,
+						removeEmpItemNames: removeEmpItemNames
 					},
 					success: XHRsuccess( callback ),
 					error: XHRerror

@@ -43,15 +43,15 @@ $(function department_main(){
 		// 소속수정 클릭
 		$deptList.on("click", ".dept_modify_btn", function(){
 			
-			var deptId = $(this).closest(".dept_container").data("deptId");
+			var deptInfo = $(this).closest(".dept_container").data();
 
 			$deptRegPopTitle.text("소속 수정");
 			$deptSaveBtn.data( {
 				saveType: "MODIFY",
-				deptId: deptId
+				deptInfo: deptInfo
 			} );
 			
-			XHR.getDeptInfo( deptId, function( deptInfo ){
+			XHR.getDeptInfo( deptInfo.deptId, function( deptInfo ){
 				
 				XHR.getDeptCnt( function( deptCnt ){
 					
@@ -65,7 +65,7 @@ $(function department_main(){
 					
 				} );
 				
-				XHR.getDeptEmpItemList( deptId, function( deptEmpItemList ){
+				XHR.getDeptEmpItemList( deptInfo.deptId, function( deptEmpItemList ){
 
 					for( var i=1; i<deptEmpItemList.length; ++i ){
 						var deptEmpItem = deptEmpItemList[ i ];
